@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NewsStage2</string>
+    <string name="noarticles">No Articles Found please reload the page</string>
+    <string name="noi">NO Internet</string>
+</resources>

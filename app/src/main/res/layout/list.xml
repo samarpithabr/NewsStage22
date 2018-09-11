@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/sectionName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:textSize="20sp"
+        android:textColor="#C51162"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/publicationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F50057"
+        />
+    <TextView
+        android:id="@+id/publicationtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F50057"
+        />
+    <TextView
+        android:id="@+id/webtitl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#880E4F
+"
+        />
+    <TextView
+        android:id="@+id/webUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D81B60"
+        />
+    <TextView
+        android:id="@+id/Author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#D81B60"
+        android:textStyle="bold"
+        />
+    <View
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"></View>
+</LinearLayout>
