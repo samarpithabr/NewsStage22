@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import static com.example.shara.newsstage2.R.string.settings_order_by_key;
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -28,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+            Preference orderBy = findPreference(getString(settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
         }
         public boolean onPreferenceChange(Preference preference, Object value) {

@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
             // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
-            String mindate = sharedPrefs.getString(
-                    getString(R.string.settings_min_date_key),
-                    getString(R.string.settings_min_date_default));
+            String mentioneddate = sharedPrefs.getString(
+                    getString(R.string.settings_mentioned_date_key),
+                    getString(R.string.settings_mentioned_date_default));
 
             String orderBy  = sharedPrefs.getString(
                     getString(R.string.settings_order_by_key),
@@ -102,8 +102,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Append query parameter and its value. For example, the `format=geojson`
             uriBuilder.appendQueryParameter("api-key", "adad3c5b-1616-47b8-8e7e-a03b2ab8e819");
             uriBuilder.appendQueryParameter("show-tags", "contributor");
-            uriBuilder.appendQueryParameter("minmag", mindate);
+            uriBuilder.appendQueryParameter("minmag", mentioneddate);
             uriBuilder.appendQueryParameter("orderby", "time");
+            uriBuilder.appendQueryParameter("orderby",orderBy);
 
             // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
             return new NewsLoader(this, uriBuilder.toString());
