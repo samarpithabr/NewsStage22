@@ -26,13 +26,18 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-            Preference orderBy = findPreference(getString(settings_order_by_key));
+
+            Preference mentioneddate= findPreference(getString(R.string.settings_mentioned_date_key));
+            bindPreferenceSummaryToValue(mentioneddate);
+
+
+            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
         }
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
-            preference.setSummary(stringValue);
+
             if (preference instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) preference;
                 int prefIndex = listPreference.findIndexOfValue(stringValue);

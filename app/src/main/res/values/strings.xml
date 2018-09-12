@@ -7,6 +7,8 @@
     <string name="settings_mentioned_date_label">Change Date</string>
     <string name="settings_mentioned_date_key" translatable="false">change_date</string>
     <string name="settings_mentioned_date_default" translatable="false">5</string>
+
+
     <string name="settings_order_by_label">Order By</string>
     <string name="settings_order_by_key" translatable="false">order_by</string>
     <string name="settings_order_by_default" translatable="false">settings_order_by_date_value</string>

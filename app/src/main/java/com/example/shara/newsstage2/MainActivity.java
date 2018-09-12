@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mEmptyStateTextView.setText(R.string.noi);
         }
 
-       
+
 
     }
 
@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Append query parameter and its value. For example, the `format=geojson`
             uriBuilder.appendQueryParameter("api-key", "adad3c5b-1616-47b8-8e7e-a03b2ab8e819");
             uriBuilder.appendQueryParameter("show-tags", "contributor");
-            uriBuilder.appendQueryParameter("minmag", mentioneddate);
-            //uriBuilder.appendQueryParameter("orderby", "time");
+            uriBuilder.appendQueryParameter("mentiondate", mentioneddate);
+
             Uri.Builder orderby = uriBuilder.appendQueryParameter("orderby", order_By);
 
 
