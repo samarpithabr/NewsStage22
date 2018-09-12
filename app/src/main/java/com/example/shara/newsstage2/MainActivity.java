@@ -1,5 +1,6 @@
 package com.example.shara.newsstage2;
 
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +17,28 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
     private static final int News_Loader_id = 1;
+    private DatePickerDialog.OnDateSetListener dateselected;
+    private EditText change_date;
     /**
      * Url of what need to be accesed
      */
@@ -73,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.noi);
         }
+
+       
+
     }
 
 
@@ -81,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // onCreateLoader instantiates and returns a new Loader for the given ID
         public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
 
+
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
             // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
@@ -88,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     getString(R.string.settings_mentioned_date_key),
                     getString(R.string.settings_mentioned_date_default));
 
-            String orderBy  = sharedPrefs.getString(
+            String order_By = sharedPrefs.getString(
                     getString(R.string.settings_order_by_key),
                     getString(R.string.settings_order_by_default)
             );
@@ -103,12 +118,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             uriBuilder.appendQueryParameter("api-key", "adad3c5b-1616-47b8-8e7e-a03b2ab8e819");
             uriBuilder.appendQueryParameter("show-tags", "contributor");
             uriBuilder.appendQueryParameter("minmag", mentioneddate);
-            uriBuilder.appendQueryParameter("orderby", "time");
-            uriBuilder.appendQueryParameter("orderby",orderBy);
+            //uriBuilder.appendQueryParameter("orderby", "time");
+            Uri.Builder orderby = uriBuilder.appendQueryParameter("orderby", order_By);
 
-            // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+
+
+
             return new NewsLoader(this, uriBuilder.toString());
-
         }
 
 
@@ -149,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
 
 
