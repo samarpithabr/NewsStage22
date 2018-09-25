@@ -1,21 +1,18 @@
 package com.example.shara.newsstage2;
 
 
-
-
-import java.util.Date;
-
-    public class News {
+public class News {
         private String sectionName;
-        private String publicationDate;
         private String webTitle;
         private String webUrl;
         private String authorName;
+        private  String newsDate;
+        private String newsTime;
 
-
-        public News(String name, String dte, String title, String url, String aname) {
+        public News(String name, String date,String time,String title, String url, String aname) {
             sectionName = name;
-            publicationDate = dte;
+            newsDate=date;
+            newsTime=time;
             webTitle = title;
             webUrl = url;
             authorName = aname;
@@ -26,8 +23,12 @@ import java.util.Date;
             return authorName;
         }
 
-        public String getPublicationDate() {
-            return publicationDate;
+        public String getNewsDate() {
+            return newsDate;
+        }
+
+        public String getNewsTime() {
+            return newsTime;
         }
 
         public String getSectionName() {

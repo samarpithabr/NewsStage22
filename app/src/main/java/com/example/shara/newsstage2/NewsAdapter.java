@@ -31,20 +31,10 @@ public class NewsAdapter extends ArrayAdapter<News> {
         News currentNews = getItem(position);
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.sectionName);
         nameTextView.setText(currentNews.getSectionName());
-        String DateTimeString = currentNews.getPublicationDate();
-        String Timeonly;
-        String Dateonly;
-        if (DateTimeString.contains(LOCATION_SEPARATOR1) && (DateTimeString.contains(LOCATION_SEPARATOR2))) {
-            String[] parts = DateTimeString.split(LOCATION_SEPARATOR1);
-            Dateonly = parts[0];
-            Timeonly = parts[1];
-            TextView dateView = (TextView) listItemView.findViewById(R.id.publicationDate);
-            dateView.setText(Dateonly);
-
-            TextView timeview = (TextView) listItemView.findViewById(R.id.publicationtime);
-            timeview.setText(Timeonly);
-
-        }
+        TextView dateTextview =(TextView) listItemView.findViewById(R.id.publicationDate);
+        dateTextview.setText(currentNews.getNewsDate());
+        TextView timeTextview =(TextView) listItemView.findViewById(R.id.publicationtime);
+        timeTextview.setText(currentNews.getNewsTime());
         TextView iconView = (TextView) listItemView.findViewById(R.id.webtitl);
         iconView.setText(currentNews.getWebTitle());
         TextView iconView1 = (TextView) listItemView.findViewById(R.id.webUrl);

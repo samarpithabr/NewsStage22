@@ -15,8 +15,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class QueryUtils {
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
@@ -132,7 +137,9 @@ public class QueryUtils {
                 JSONObject c = result.getJSONObject(i);
 
                 String sectionName = c.getString("sectionName");
-                String dte = c.getString("webPublicationDate");
+                String webPublicationDate = c.getString("webPublicationDate");
+                String date = formattedDate(webPublicationDate);
+                String time = formatTime(webPublicationDate);
 
                 String webTitle = c.getString("webTitle");
                 String webUrl = c.getString("webUrl");
@@ -142,21 +149,39 @@ public class QueryUtils {
                     String authorWebName = authorarryJSONObject.getString("webTitle");
 
 
-                    News newsfinal = new News(sectionName, dte, webTitle, webUrl, authorWebName);
+                    News newsfinal = new News(sectionName, date, time, webTitle, webUrl, authorWebName);
                     newsArrayList.add(newsfinal);
                 }
             }
         } catch (JSONException e) {
 
             Log.e("QueryUtils", "Problem parsing the News JSON results", e);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
 
         return newsArrayList;
     }
 
+    private static String formatTime(String webPublicationTime) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date articleTime = format.parse(webPublicationTime);
+        format.applyPattern("hh:mm");
+        webPublicationTime = format.format(articleTime);
+        return webPublicationTime;
+    }
 
+    private static String formattedDate(String webPublicationDate) throws ParseException {
 
-
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'", Locale.getDefault());
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date articleDate = format.parse(webPublicationDate);
+        format.applyPattern("MMM dd, yyyy");
+        webPublicationDate = format.format(articleDate);
+        return webPublicationDate;
+    }
 
 
 }

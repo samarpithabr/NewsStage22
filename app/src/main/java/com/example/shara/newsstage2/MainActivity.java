@@ -1,49 +1,36 @@
 package com.example.shara.newsstage2;
 
 import android.app.DatePickerDialog;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-
-
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.security.PrivateKey;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
     private static final int News_Loader_id = 1;
-    private DatePickerDialog.OnDateSetListener dateselected;
-    private EditText change_date;
-    /**
+      /**
      * Url of what need to be accesed
      */
-    private static final String News_URL ="https://content.guardianapis.com/search";
-            //"https://content.guardianapis.com/search?api-key=adad3c5b-1616-47b8-8e7e-a03b2ab8e819&show-tags=contributor";
+    private static final String News_URL = "https://content.guardianapis.com/search";
+    //"https://content.guardianapis.com/search?api-key=adad3c5b-1616-47b8-8e7e-a03b2ab8e819&show-tags=contributor";
     private String TAG = MainActivity.class.getSimpleName();
     ArrayList<HashMap<String, String>> newsList;
     private NewsAdapter newsAdapter;
@@ -84,54 +71,38 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             loadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.noi);
         }
-
-
-
     }
 
+    @Override
+    // onCreateLoader instantiates and returns a new Loader for the given ID
+    public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String newsFromDate = sharedPrefs.getString(
+                getString(R.string.settings_from_date_key),
+                getString(R.string.settings_from_date_default));
 
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
 
-        @Override
-        // onCreateLoader instantiates and returns a new Loader for the given ID
-        public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(News_URL);
 
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
 
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-            // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
-            String mentioneddate = sharedPrefs.getString(
-                    getString(R.string.settings_mentioned_date_key),
-                    getString(R.string.settings_mentioned_date_default));
-
-            String order_By = sharedPrefs.getString(
-                    getString(R.string.settings_order_by_key),
-                    getString(R.string.settings_order_by_default)
-            );
-
-            // parse breaks apart the URI string that's passed into its parameter
-            Uri baseUri = Uri.parse(News_URL);
-
-            // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
-            Uri.Builder uriBuilder = baseUri.buildUpon();
-
-            // Append query parameter and its value. For example, the `format=geojson`
-            uriBuilder.appendQueryParameter("api-key", "adad3c5b-1616-47b8-8e7e-a03b2ab8e819");
-            uriBuilder.appendQueryParameter("show-tags", "contributor");
-            uriBuilder.appendQueryParameter("mentiondate", mentioneddate);
-
-            Uri.Builder orderby = uriBuilder.appendQueryParameter("orderby", order_By);
-
-
-
-
-            return new NewsLoader(this, uriBuilder.toString());
-        }
-
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("from-date", newsFromDate);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("api-key", "adad3c5b-1616-47b8-8e7e-a03b2ab8e819");
+        // Append query parameter and its value. For example, the `format=geojson`
+        return new NewsLoader(this, uriBuilder.toString());
+    }
 
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> newsArrayList) {
-
 
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);

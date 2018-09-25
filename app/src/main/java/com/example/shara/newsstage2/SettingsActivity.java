@@ -26,10 +26,8 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
-
-            Preference mentioneddate= findPreference(getString(R.string.settings_mentioned_date_key));
-            bindPreferenceSummaryToValue(mentioneddate);
-
+            Preference newsFromDate = findPreference(getString(R.string.settings_from_date_key));
+            bindPreferenceSummaryToValue(newsFromDate);
 
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
@@ -50,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
             return true;
         }
-
 
         private void bindPreferenceSummaryToValue(Preference preference) {
             preference.setOnPreferenceChangeListener(this);

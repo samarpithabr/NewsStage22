@@ -3,21 +3,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_title">
-    <EditTextPreference
 
-        android:id="@+id/cal_edit_view"
-        android:defaultValue="@string/settings_mentioned_date_default"
+    <EditTextPreference
+        android:defaultValue="@string/settings_from_date_default"
+        android:hint="@string/example"
         android:inputType="date"
-        android:key="@string/settings_mentioned_date_key"
+        android:key="@string/settings_from_date_key"
         android:selectAllOnFocus="true"
-        android:title="@string/settings_mentioned_date_label"
-        
-/>
+        android:title="@string/settings_from_date_label" />
+
+
     <ListPreference
         android:defaultValue="@string/settings_order_by_default"
         android:entries="@array/settings_order_by_labels"
         android:entryValues="@array/settings_order_by_values"
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
+
 
 </PreferenceScreen>

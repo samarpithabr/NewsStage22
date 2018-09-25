@@ -9,9 +9,7 @@ import java.util.List;
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     private static final String LOG_TAG = NewsLoader.class.getName();
-
     private String mUrl;
-
     public NewsLoader(Context context, String url) {
         super(context);
         mUrl = url;
@@ -27,7 +25,6 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         if (mUrl == null) {
             return null;
         }
-
 
         List<News> newsArrayList = QueryUtils.fetchNewsData(mUrl);
         return newsArrayList;
